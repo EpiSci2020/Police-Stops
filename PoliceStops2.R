@@ -15,7 +15,6 @@ cop$pop <- scale(cop$pop)
 cop$arrests <- scale(cop$arrests)
 
 ggplot() +
-  
   geom_boxplot(aes(x = as.factor(eth), y = stops), data = cop)
 m1 <-glm(stops ~ 1, data = cop, family = "poisson")
 summary(m1)
@@ -116,6 +115,36 @@ plot(precis(m55))
 plot(m55)
 compare(m11, m22, m33, m44, m55)
 
-post <- extract.samples(m55)
-str(post)
-mean(post$beth)
+#saveRDS(m11, "m11.rds")
+#saveRDS(m22, "m22.rds")
+#saveRDS(m33, "m33.rds")
+#saveRDS(m44, "m44.rds")
+#saveRDS(m55, "m55.rds")
+eth_seq <- seq(1, 3, length.out = 100)
+crime_seq <- seq(1,4,length.out = 100)
+pop_seq <- seq(-1.0, 4.8, length.out = 100)
+pred_data <- data.frame(eth = eth_seq, pop = pop_seq, crime = crime_seq)
+lambda_link <- link(m44, data = pred_data)
+str(lambda_link)
+dens(lambda_link, adj = 2)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
